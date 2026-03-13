@@ -43,39 +43,49 @@ IMPORTANT RULES for recommendation:
           rec_reason = f"Fail probability of {round(fail_prob*100, 1)}% is below 40% → INVEST eligible"
 
       prompt = f"""
-  Evaluate the following startup.
+Evaluate the following startup.
 
-  Startup:
-  {pitch}
+Startup:
+{pitch}
 
-  Financial Metrics:
-  {metrics}
+Financial Metrics:
+{metrics}
 
-  Simulation Results:
-  {simulation}
+Simulation Results:
+{simulation}
 
-  Investor ROI:
-  {roi}
+Investor ROI:
+{roi}
 
-  IMPORTANT: You must use exactly {confidence_score} as the confidence_score. Do not change it.
-  IMPORTANT: First entry of decision_reasoning MUST be exactly: "{rec_reason}"
+IMPORTANT: You must use exactly {confidence_score} as the confidence_score. Do not change it.
+IMPORTANT: First entry of decision_reasoning MUST be exactly: "{rec_reason}"
 
-  Return JSON:
+Return JSON with ALL fields populated — do NOT return empty arrays:
 
-  {{
-  "recommendation": "",
+{{
+  "recommendation": "INVEST or CONDITIONAL_INVEST or DO_NOT_INVEST",
   "confidence_score": {confidence_score},
-  "strengths": [],
-  "risks": [],
-  "suggested_changes": [],
+  "strengths": [
+      "specific strength based on the metrics above",
+      "another specific strength",
+      "a third strength"
+  ],
+  "risks": [
+      "specific risk based on the metrics above",
+      "another specific risk"
+  ],
+  "suggested_changes": [
+      "specific actionable change",
+      "another actionable change"
+  ],
   "decision_reasoning": [
       "{rec_reason}",
-      "explain which metric most drove this decision",
-      "explain the biggest risk factor",
-      "explain what would change the recommendation"
+      "which single metric most drove this decision and why",
+      "the biggest risk factor from the simulation data",
+      "what specific change would upgrade or downgrade the recommendation"
   ]
-  }}
-  """
+}}
+"""
 
       raw = self.run(prompt)
       validated = VentureDecision(**raw)

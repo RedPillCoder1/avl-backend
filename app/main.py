@@ -24,7 +24,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 decision_agent = VentureDecisionAgent()
 improvement_agent = ImprovementAgent()
