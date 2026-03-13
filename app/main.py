@@ -28,6 +28,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "https://avl-backend-6irk.onrender.com",
         "https://avl-frontend.vercel.app",  # update this after Vercel deploy
         "https://*.vercel.app",             # covers preview deployments too
     ],
