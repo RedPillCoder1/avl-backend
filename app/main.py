@@ -26,12 +26,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://avl-backend-6irk.onrender.com",
-        "https://autonomousventurelab.vercel.app/",
-        "https://*.vercel.app",             # covers preview deployments too
-    ],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
